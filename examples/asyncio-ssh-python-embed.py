@@ -43,8 +43,8 @@ def main(port=8222):
     def create_server():
         return MySSHServer(lambda: environ)
 
-    print('Listening on :%i' % port)
-    print('To connect, do "ssh localhost -p %i"' % port)
+    print('Listening on :{0:d}'.format(port))
+    print('To connect, do "ssh localhost -p {0:d}"'.format(port))
 
     loop.run_until_complete(
         asyncssh.create_server(create_server, '', port,

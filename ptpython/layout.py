@@ -65,7 +65,7 @@ def python_sidebar(python_input):
         def append_category(category):
             tokens.extend([
                 (T, '  '),
-                (T.Title, '   %-36s' % category.title),
+                (T.Title, '   {0:<36!s}'.format(category.title)),
                 (T, '\n'),
             ])
 
@@ -86,9 +86,9 @@ def python_sidebar(python_input):
             token = T.Selected if selected else T
 
             tokens.append((T, ' >' if selected else '  '))
-            tokens.append((token.Label, '%-24s' % label, select_item))
+            tokens.append((token.Label, '{0:<24!s}'.format(label), select_item))
             tokens.append((token.Status, ' ', select_item))
-            tokens.append((token.Status, '%s' % status, goto_next))
+            tokens.append((token.Status, '{0!s}'.format(status), goto_next))
 
             if selected:
                 tokens.append((Token.SetCursorPosition, ''))
@@ -102,7 +102,7 @@ def python_sidebar(python_input):
             append_category(category)
 
             for option in category.options:
-                append(i, option.title, '%s' % option.get_current_value())
+                append(i, option.title, '{0!s}'.format(option.get_current_value()))
                 i += 1
 
         tokens.pop()  # Remove last newline.
@@ -294,7 +294,7 @@ def status_bar(key_bindings_manager, python_input):
         append((TB, ' '))
 
         # Position in history.
-        append((TB, '%i/%i ' % (python_buffer.working_index + 1,
+        append((TB, '{0:d}/{1:d} '.format(python_buffer.working_index + 1,
                                 len(python_buffer._working_lines))))
 
         # Shortcuts.
@@ -386,7 +386,7 @@ def show_sidebar_button_info(python_input):
         (token.Key, '[F2]', toggle_sidebar),
         (token, ' Menu', toggle_sidebar),
         (token, ' - '),
-        (token.PythonVersion, '%s %i.%i.%i' % (platform.python_implementation(),
+        (token.PythonVersion, '{0!s} {1:d}.{2:d}.{3:d}'.format(platform.python_implementation(),
                                                version[0], version[1], version[2])),
         (token, ' '),
     ]
@@ -413,7 +413,7 @@ def exit_confirmation(python_input, token=Token.ExitConfirmation):
     def get_tokens(cli):
         # Show "Do you really want to exit?"
         return [
-            (token, '\n %s ([y]/n)' % python_input.exit_message),
+            (token, '\n {0!s} ([y]/n)'.format(python_input.exit_message)),
             (Token.SetCursorPosition, ''),
             (token, '  \n'),
         ]

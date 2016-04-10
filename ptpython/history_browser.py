@@ -113,7 +113,7 @@ def create_popup_window(title, body):
             Window(width=D.exact(1), height=D.exact(1),
                    content=FillControl(BORDER.TOP_LEFT, token=Token.Window.Border)),
             TokenListToolbar(
-                get_tokens=lambda cli: [(Token.Window.Title, ' %s ' % title)],
+                get_tokens=lambda cli: [(Token.Window.Title, ' {0!s} '.format(title))],
                 align_center=True,
                 default_char=Char(BORDER.HORIZONTAL, Token.Window.Border)),
             Window(width=D.exact(1), height=D.exact(1),
@@ -358,7 +358,7 @@ class HistoryMapping(object):
                 history_lines.append(line)
 
         if len(python_history) > HISTORY_COUNT:
-            history_lines[0] = '# *** History has been truncated to %s lines ***' % HISTORY_COUNT
+            history_lines[0] = '# *** History has been truncated to {0!s} lines ***'.format(HISTORY_COUNT)
 
         self.history_lines = history_lines
         self.concatenated_history = '\n'.join(history_lines)

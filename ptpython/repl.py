@@ -110,19 +110,19 @@ class PythonRepl(PythonInput):
                 result = eval(code, self.get_globals(), self.get_locals())
 
                 locals = self.get_locals()
-                locals['_'] = locals['_%i' % self.current_statement_index] = result
+                locals['_'] = locals['_{0:d}'.format(self.current_statement_index)] = result
 
                 if result is not None:
                     out_tokens = self.get_output_prompt_tokens(cli)
 
                     try:
-                        result_str = '%r\n' % (result, )
+                        result_str = '{0!r}\n'.format(result )
                     except UnicodeDecodeError:
                         # In Python 2: `__repr__` should return a bytestring,
                         # so to put it in a unicode context could raise an
                         # exception that the 'ascii' codec can't decode certain
                         # characters. Decode as utf-8 in that case.
-                        result_str = '%s\n' % repr(result).decode('utf-8')
+                        result_str = '{0!s}\n'.format(repr(result).decode('utf-8'))
 
                     # Align every line to the first one.
                     line_sep = '\n' + ' ' * token_list_width(out_tokens)
@@ -165,7 +165,7 @@ class PythonRepl(PythonInput):
         tokens = _lex_python_traceback(tb)
         cli.print_tokens(tokens, style=style_from_pygments(DefaultStyle))
 
-        output.write('%s\n\n' % e)
+        output.write('{0!s}\n\n'.format(e))
         output.flush()
 
     @classmethod
@@ -218,7 +218,7 @@ def run_config(repl, config_file='~/.ptpython/config.py'):
 
     # Check whether this file exists.
     if not os.path.exists(config_file):
-        print('Impossible to read %r' % config_file)
+        print('Impossible to read {0!r}'.format(config_file))
         enter_to_continue()
         return
 

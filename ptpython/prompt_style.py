@@ -45,7 +45,7 @@ class IPythonPrompt(PromptStyle):
     def in_tokens(self, cli):
         return [
             (Token.In, 'In ['),
-            (Token.In.Number, '%s' % self.python_input.current_statement_index),
+            (Token.In.Number, '{0!s}'.format(self.python_input.current_statement_index)),
             (Token.In, ']: '),
         ]
 
@@ -57,7 +57,7 @@ class IPythonPrompt(PromptStyle):
     def out_tokens(self, cli):
         return [
             (Token.Out, 'Out['),
-            (Token.Out.Number, '%s' % self.python_input.current_statement_index),
+            (Token.Out.Number, '{0!s}'.format(self.python_input.current_statement_index)),
             (Token.Out, ']:'),
             (Token, ' '),
         ]

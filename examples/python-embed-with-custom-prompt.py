@@ -19,14 +19,14 @@ def configure(repl):
         def in_tokens(self, cli):
             return [
                 (Token.In, 'Input['),
-                (Token.In.Number, '%s' % repl.current_statement_index),
+                (Token.In.Number, '{0!s}'.format(repl.current_statement_index)),
                 (Token.In, '] >>: '),
             ]
 
         def out_tokens(self, cli):
             return [
                 (Token.Out, 'Result['),
-                (Token.Out.Number, '%s' % repl.current_statement_index),
+                (Token.Out.Number, '{0!s}'.format(repl.current_statement_index)),
                 (Token.Out, ']: '),
             ]
 
